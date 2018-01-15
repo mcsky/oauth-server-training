@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+    # NGINX
+#    nginx:
+#      ports:
+#        - "443:443"
+
+    # MYSQL
+    db:
+      restart: always
+      image: mariadb
+      ports:
+        - "3307:3306"
