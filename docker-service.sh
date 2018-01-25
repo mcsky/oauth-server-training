@@ -43,14 +43,14 @@ install() {
     sleep 1
     docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm composer install --prefer-dist --no-interaction --optimize-autoloader
 #    docker-compose exec -T --user www-data phpfpm /usr/bin/env bin/console doctrine:database:drop --force
-    docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console doctrine:database:create
+    docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console doctrine:database:create --if-not-exists
     docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console doctrine:schema:update --force
     docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console cache:clear
     docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console cache:warmup
 }
 
 populate() {
-    docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console hautelook:fixtures:load -e=dev
+    docker-compose -f docker-compose"$env".yml exec -T --user www-data phpfpm /usr/bin/env bin/console doctrine:fixtures:load --no-interaction
 }
 
 cc() {
@@ -71,7 +71,6 @@ while getopts "h:e:" opt; do
   case $opt in
     h)
         show_help
-        echo "popo"
         exit 0
         ;;
     e)
@@ -79,12 +78,10 @@ while getopts "h:e:" opt; do
         ;;
     *)
         show_help >&2
-        echo "caca"
         exit 1
         ;;
   esac
 done
-echo "ENV: $env"
 
 # Shift off the options and optional --.
 shift "$((OPTIND-1))"

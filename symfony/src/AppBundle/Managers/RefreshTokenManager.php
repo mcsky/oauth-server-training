@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity;
+namespace AppBundle\Managers;
 
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Entity\TokenManager;

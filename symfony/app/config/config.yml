@@ -73,8 +73,10 @@ swiftmailer:
     spool: { type: memory }
 
 fos_oauth_server:
-    db_driver: propel
-    client_class: '%fosauthserver_client_entity_class%'
-    access_token_class: '%fosauthserver_access_token_entity_class%'
-    refresh_token_class: '%fosauthserver_refresh_token_entity_class%'
-    auth_code_class: '%fosauthserver_auth_code_entity_class%'
+    db_driver: orm
+    service:
+        user_provider: app.security.mysql_provider
+    client_class: 'AppBundle\Entity\Client'
+    access_token_class: 'AppBundle\Entity\AccessToken'
+    refresh_token_class: 'AppBundle\Entity\RefreshToken'
+    auth_code_class: 'AppBundle\Entity\AuthCode'

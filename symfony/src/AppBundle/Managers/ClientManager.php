@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Managers;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
