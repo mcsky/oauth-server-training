@@ -33,20 +33,14 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    AppBundle\Builder\Client:
-        class: AppBundle\Builder\Client
-        public: true
-        arguments:
-            - '@fos_oauth_server.client_manager.default'
-
-    app.security.mysql_provider:
-        class: AppBundle\Security\MysqlUserProvider
-        arguments: ['@doctrine.orm.entity_manager']
 
     app.listeners.http_body_request_parser:
         class: AppBundle\Listeners\Http\RequestJsonBodyListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    app.security.testguard:
+        class: AppBundle\Security\TestGuard
 
     # Annotations readers
     gedmo.listener.timestampable:

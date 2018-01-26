@@ -1,0 +1,10 @@
+services:
+    Symfony\Component\Ldap\Ldap:
+        arguments:
+            - '@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'
+    Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
+        arguments:
+            -   host: '%ldap_host%'
+                port: 389
+                options:
+                    protocol_version: 3
