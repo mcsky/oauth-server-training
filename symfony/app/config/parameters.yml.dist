@@ -17,5 +17,11 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
-    ldap_host: your.ldap.host
+
+    # LDAP PARAMS
     admin_password: 'toto'
+    ldap_host: ldap.biig.local
+    ldap_dn: 'cn=admin,dc=biig,dc=local'
+    ldap_pwd: 'to4rhTw@rzT8'
+    ldap_base_dn: 'dc=biig,dc=local'
+    ldap_search_dn: 'cn=admin,%ldap_base_dn%'

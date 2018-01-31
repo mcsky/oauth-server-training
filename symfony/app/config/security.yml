@@ -4,7 +4,6 @@ security:
             algorithm: bcrypt
             encode_as_base64: false
             iterations: 10
-        AppBundle\Entity\User: plaintext
 
     firewalls:
         oauth_token:
@@ -13,10 +12,11 @@ security:
 
         oauth_authorize:
             pattern:    ^/oauth/v2/auth
+            provider: ldap_biig
             form_login_ldap:
-                service: Symfony\Component\Ldap\Ldap
-                dn_string: 'uid={username},dc=example,dc=com'
-                check_path: /oauth/v2/auth/ldap_login_check
+                service: app.ldap.client
+                check_path: /oauth/v2/auth/login_check
+#                login_path: /login
 
         api:
             pattern:    ^/api
@@ -33,14 +33,14 @@ security:
             memory:
                 users:
                     oauthserver:
-                        password: %admin_password%
+                        password: '%admin_password%'
                         roles: 'ROLE_ADMIN'
         ldap_biig:
             ldap:
-                service: Symfony\Component\Ldap\Ldap
-                base_dn: dc=example,dc=com
-                search_dn: "cn=read-only-admin,dc=example,dc=com"
-                search_password: password
+                service: app.ldap.client
+                base_dn: '%ldap_base_dn%'
+                search_dn: '%ldap_search_dn%'
+                search_password: '%ldap_pwd%'
                 default_roles: ROLE_EMPLOYE
                 uid_key: uid
 
