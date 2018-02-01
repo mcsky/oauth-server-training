@@ -7,3 +7,6 @@ fos_oauth_server_token:
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+login_check:
+    path:  /oauth/v2/auth/check_path

@@ -104,6 +104,51 @@ class User implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatarUrl()
+    {
+        return $this->avatarUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
      * Removes sensitive data from the user.
      *
      * This is important if, at any given point, sensitive information like
@@ -111,7 +156,6 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        $this->setPassword('');
         return;
     }
 
@@ -177,6 +221,22 @@ class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateLastConnection()
+    {
+        return $this->dateLastConnection;
     }
 
     /**

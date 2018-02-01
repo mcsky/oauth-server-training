@@ -1,0 +1,77 @@
+{% extends "FOSOAuthServerBundle::layout.html.twig" %}
+
+{% block fos_oauth_server_content %}
+    <style>
+        ul {
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .scope {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        .btn.allow {
+            background-color: #6b9311;
+        }
+
+        .btn.deny {
+            background-color: #AA3333;
+        }
+
+        img.handshaker {
+            height: 300px;
+            width: 300px;
+        }
+
+        div.handshake {
+            /*text-align: center;*/
+            margin-bottom: 30px;
+        }
+
+        div#answer-container {
+            background-color: #0f86cd;
+            margin: 0 auto;
+            width: 300px;
+            padding: 7px;
+        }
+
+        form {
+            margin-top: 50px;
+        }
+    </style>
+    <div style="text-align: center">
+        <h1>Biig Auth</h1>
+        <div class="handshake">
+            {% image '@AppBundle/Resources/public/images/logo-biig.gif' %}
+                <img src="{{ asset_url }}" class="handshaker" />
+            {% endimage %}
+            <img src="{{ app.user.avatarUrl }}" class="handshaker" alt="{{ app.user.fullName }}">
+        </div>
+        <h3 style="text-align: center">The application "{{ client.name }}" would like to verify your identity</h3>
+
+        {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
+            <p>This application want access to some of <b>YOUR</b> informations.</p>
+            {% set scopes = form.scope.vars.data is defined ? form.scope.vars.data|split(',') : [] %}
+            <ul>
+                {% for scope in scopes %}
+                    <li class="scope">{{ scope }}</li>
+                {% endfor %}
+            </ul>
+
+            <div id="answer-container">
+                <p>
+                    Do you grant him this access ?
+                </p>
+                <input class="btn deny" type="submit" name="rejected" value="{{ 'authorize.reject'|trans({}, 'FOSOAuthServerBundle') }}" />
+                <input class="btn btn-primary allow" type="submit" name="accepted" value="{{ 'authorize.accept'|trans({}, 'FOSOAuthServerBundle') }}" />
+            </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock fos_oauth_server_content %}

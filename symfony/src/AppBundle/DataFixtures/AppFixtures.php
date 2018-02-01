@@ -26,17 +26,17 @@ class AppFixtures extends Fixture
         }
 
         $user = new User();
-        $user->setEmail('toto@biig.fr');
+        $user->setEmail('dark.vador@biig.fr');
         $user->setRoles('ROLE_EMPLOYE');
         $user->setAvatarUrl('http://pre14.deviantart.net/dd01/th/pre/i/2008/096/c/1/darth_vader_by_hellself3003.jpg');
         $user->setDateCreation(new \DateTime('-1 month'));
         $user->setDateLastConnection(new \DateTime());
-        $user->setLastName('Labricot');
-        $user->setFirstName('Toto');
+        $user->setLastName('Vador');
+        $user->setFirstName('Dark');
 
 
-        $user->setUsername('toto');
-        $user->setPassword('abricot');
+        $user->setUsername('dvador');
+        $user->setPassword('anakin');
         $manager->persist($user);
 
         $manager->flush();

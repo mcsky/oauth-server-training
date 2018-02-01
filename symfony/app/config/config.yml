@@ -77,7 +77,15 @@ fos_oauth_server:
     db_driver: orm
     service:
         user_provider: app.security.mysql_provider
+        options:
+            supported_scopes: default personal_informations
     client_class: 'AppBundle\Entity\Client'
     access_token_class: 'AppBundle\Entity\AccessToken'
     refresh_token_class: 'AppBundle\Entity\RefreshToken'
     auth_code_class: 'AppBundle\Entity\AuthCode'
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~

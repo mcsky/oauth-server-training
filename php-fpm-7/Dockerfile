@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y \
     && chmod +x /usr/local/bin/composer \
     && rm -rf /var/lib/apt/lists/* \
 CMD ["php-fpm"]
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www

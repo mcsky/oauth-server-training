@@ -46,3 +46,4 @@ services:
             - [setAnnotationReader, ['@annotation_reader']]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
