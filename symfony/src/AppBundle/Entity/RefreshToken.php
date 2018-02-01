@@ -2,14 +2,17 @@
 
 namespace AppBundle\Entity;
 
-use FOS\OAuthServerBundle\Model\RefreshToken as BaseRefreshToken;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Model\RefreshTokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  */
-class RefreshToken extends BaseRefreshToken
+class RefreshToken implements RefreshTokenInterface
 {
+    use TokenTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -27,4 +30,13 @@ class RefreshToken extends BaseRefreshToken
      * @ORM\ManyToOne(targetEntity="User")
      */
     protected $user;
+
+    /**
+     * @return UserInterface
+     */
+    public function getData()
+    {
+        return $this->getUser();
+    }
+
 }

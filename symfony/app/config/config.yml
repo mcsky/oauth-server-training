@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
     fosauthserver_client_entity_class: 'FOS\OAuthServerBundle\Entity\Client'
     fosauthserver_access_token_entity_class: 'FOS\OAuthServerBundle\Entity\AccessToken'
     fosauthserver_refresh_token_entity_class: 'FOS\OAuthServerBundle\Entity\RefreshToken'

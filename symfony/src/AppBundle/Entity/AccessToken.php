@@ -2,15 +2,17 @@
 
 namespace AppBundle\Entity;
 
-use FOS\OAuthServerBundle\Model\AccessToken as BaseAccessToken;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\OAuthServerBundle\Model\AccessTokenInterface;
 
 /**
  * @ORM\Entity
  */
 
-class AccessToken extends BaseAccessToken
+class AccessToken implements AccessTokenInterface
 {
+    use TokenTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

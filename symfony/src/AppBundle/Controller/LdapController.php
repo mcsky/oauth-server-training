@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Security\LdapClient;
+use AppBundle\Form\LoginForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Ldap\Ldap;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\LdapUserProvider;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LdapController extends Controller
 {
@@ -21,7 +21,6 @@ class LdapController extends Controller
     {
         /** @var Ldap $ldapClient */
         $ldapClient = $this->get('app.ldap.client');
-
         $ldapProvider = new LdapUserProvider(
             $ldapClient,
             'dc=biig,dc=local',
@@ -30,39 +29,29 @@ class LdapController extends Controller
             ['ROLE_EMPLOYE'],
             'uid'
         );
-        $geoffroy = $ldapProvider->loadUserByUsername('cornug');
-        dump($geoffroy);
+        $kevin = $ldapProvider->loadUserByUsername('cornug');
 
-        return new JsonResponse('');
-    }
-
-    /**
-     * @Route("/oauth/v2/auth/login_check", name="ldap_login_check")
-     */
-    public function loginCheckAction(Request $request)
-    {
-        dump($request);
-        throw new \Exception('YOUPI');
         return new JsonResponse('');
     }
 
     /**
      * @Route("/login", name="ldap_login")
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
     {
-        dump($request);
-        $csrfToken = $this->has('security.csrf.token_manager')
-            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
-            : null;
+        // get the login error if there is one
+        $error = $authUtils->getLastAuthenticationError();
 
-        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
-        $session = $request->getSession();
+        // last username entered by the user
+        $lastUsername = $authUtils->getLastUsername();
 
-        $lastUsernameKey = Security::LAST_USERNAME;
+        $form = $this->createForm(LoginForm::class);
+
         return $this->render('login.html.twig', [
-            'csrf_token'    => $csrfToken,
-            'last_username' => $session->get($lastUsernameKey)
+            'error'    => $error,
+            'form'          => $form->createView(),
+            'last_username' => $lastUsername,
+            'action' => '/oauth/v2/auth/test'
         ]);
     }
 }

@@ -7,10 +7,19 @@ services:
 
     app.ldap.adapter:
         class: Symfony\Component\Ldap\Adapter\ExtLdap\Adapter
-        public: true
         arguments:
             - host: '%ldap_host%'
             - port: 389
+
+    AppBundle\Ldap\LdapUserProvider:
+        arguments:
+            - '@app.ldap.client'
+            - '%ldap_pwd%'
+
+#    app.ldap_authenticator:
+#        class: AppBundle\Security\LdapGuardAuthenticator
+#        arguments:
+#            - '@session'
 
     app.ldap.provider:
         class: Symfony\Component\Security\Core\User\LdapUserProvider
