@@ -72,11 +72,6 @@ class LdapGuardAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
 //        $ldapProvider = new LdapUserProvider(
-//            $ldapClient,
-//            'dc=biig,dc=local',
-//            'cn=admin,dc=biig,dc=local',
-//            'to4rhTw@rzT8',
-//            ['ROLE_EMPLOYE'],
 //            'uid'
 //        );
 //        $user = $ldapProvider->loadUserByUsername($credentials['username']);
